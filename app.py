@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_restful import Api
 from modules.beautify import Beautify
-from log_array import LogArray
+from modules.log_array import LogArray
 
 app = Flask(__name__)
 api = Api(app)
