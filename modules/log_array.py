@@ -25,7 +25,7 @@ class LogArray:
         return self.nameNumber  
     
     def saveLogs(self, data):
-        if self.size < BATCH_SIZE:
+        if self.size >= BATCH_SIZE:
             self.arrayAppend(data)
             self.size = self.size + 1
             print("Success?" + str(self.size))
@@ -34,6 +34,7 @@ class LogArray:
             self.dumpLogs(self.getNameNumber())
             self.nameNumber += 1
             self.size = 0
+            # Logger = logs were exported with a batch size of BATCH_SIZE
         # NEFUNGUJE INKREMENTACIA...
 
 
