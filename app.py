@@ -1,34 +1,24 @@
 from flask import Flask, request, jsonify
 from flask_restful import Api
 from modules.beautify import Beautify
+from log_array import LogArray
 
 app = Flask(__name__)
 api = Api(app)
 
-beautifier = Beautify()
+
 
 @app.route('/processmsg', methods=['GET','POST'])
 def processmsg():
     # Get random raw data
-	data = request.data
-	beautifier.beautify(data)
-	return data
-
-    # Get JSON
-    # data = request.get_json()
-    # timestamp = data['@timestamp']
-    # version = data['@version']
-    # agent = data['agent']
-    # ecs = data['ecs']
-    # event = data['event']
-    # host = data['host']
-    # log = data['log']
-    # message = data['message']
-    # tags = data['tags']
-    # winlog = data['winlog']
-
-    # return jsonify({'@timestamp' : timestamp, '@version' : version, 'agent' : agent, 'ecs': ecs, 'event': event,
-    #                 'host' : host, 'log' : log, 'message' : message, 'tags' : tags, 'winlog' : winlog})
+    beautifier = Beautify()
+    arraylog = LogArray()
+    data = request.data
+    s = beautifier.beautify(data)
+    print(s)
+    arraylog.saveLogs(s)
+    return s
+    
 
 if __name__ == '__main__':
 	app.run()
