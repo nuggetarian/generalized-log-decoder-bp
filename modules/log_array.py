@@ -5,7 +5,7 @@ from config import BATCH_SIZE
 
 class LogArray:
     logArray = []
-    size = 0
+    # size = 0
     nameNumber = 1
 
     def arrayAppend(self, data):
@@ -18,17 +18,17 @@ class LogArray:
         with open(f'data{number}.json', 'w') as f:
             json.dump(self.getArray(), f)
             
-    def getSize(self):
-        return self.size 
+    # def getSize(self):
+    #     return self.size 
         
     def getNameNumber(self):
         return self.nameNumber  
     
     def saveLogs(self, data):
-        if self.size >= BATCH_SIZE:
+        if len(self.logArray) <= BATCH_SIZE:
             self.arrayAppend(data)
-            self.size = self.size + 1
-            print("Success?" + str(self.size))
+            # self.size = self.size + 1
+            print("Success?" + str(len(self.logArray))) # + str(self.size))
         else:
             self.arrayAppend(data)
             self.dumpLogs(self.getNameNumber())
