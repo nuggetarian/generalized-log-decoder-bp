@@ -14,7 +14,7 @@ class LogArray:
         return self.logArray
         
     def dumpLogs(self, number):
-        with open(f'data{number}.json', 'w') as f:
+        with open(f'exported\\data{number}.json', 'w') as f:
             json.dump(self.getArray(), f)
     
     def saveLogs(self, data):
