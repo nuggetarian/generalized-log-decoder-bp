@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class Logger:
         
     levels = {
@@ -8,8 +10,10 @@ class Logger:
         5: '[CRITICAL]'
     }
 
-    def makeLog(self, level, message):
-        log = f"{self.levels.get(level)}: {message}"
+    def makeLog(self, level, usedClass, message):
+        time = datetime.now()
+        current = time.strftime("%H:%M:%S")
+        log = f"[{current}] {self.levels.get(level)} [{usedClass}] {message}\n"
         print(log)
         with open('activity.log', 'a') as f:
             f.write(log)

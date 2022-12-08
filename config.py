@@ -1,2 +1,2 @@
 # Velkost suboru na zaklade poctu logov
-BATCH_SIZE = 64
+BATCH_SIZE = 2

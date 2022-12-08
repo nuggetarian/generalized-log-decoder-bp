@@ -11,8 +11,10 @@ def processmsg():
     arraylog = LogArray()
     # Ziskava raw data
     data = request.data
+    # Funkcia na odsadenie JSON
     s = beautifier.beautify(data)
-    # print(s)
+    # Print odsadeneho logu
+    print(s)
     arraylog.saveLogs(s)
     print("===============================================================")
     resp = json.loads(s)
