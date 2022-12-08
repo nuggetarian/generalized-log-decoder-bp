@@ -9,16 +9,13 @@ app = Flask(__name__)
 def processmsg():
     beautifier = Beautify()
     arraylog = LogArray()
-    # Ziskava raw data
-    data = request.data
-    # Funkcia na odsadenie JSON
-    s = beautifier.beautify(data)
-    # Print odsadeneho logu
-    print(s)
+    data = request.data # Ziskava raw data
+    s = beautifier.beautify(data) # Funkcia na odsadenie JSON
+    print(s) # Print odsadeneho logu
     arraylog.saveLogs(s)
-    print("===============================================================")
-    resp = json.loads(s)
-    print(resp['event']['original'])
+    # Kod na pouzitie neskor
+    # resp = json.loads(s)
+    # print(resp['event']['original']) 
     return s
     
 
