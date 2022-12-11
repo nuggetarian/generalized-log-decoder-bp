@@ -30,14 +30,20 @@ class LogArray:
     
     #Ulozenie pola logov do suboru s cislom globalnej premennej   
     def dumpWinLogs(self, system, number):
-        with open(f'exported\\{system}\\winlogbatch{number}.json', 'w') as f:
-            json.dump(self.getWinArray(), f)
+        try:
+            with open(f'exported\\{system}\\winlogbatch{number}.json', 'w') as f:
+                json.dump(self.getWinArray(), f)
+        except:
+            self.logger.makeLog(4, "log_array", "File Creation Failed")
             # Pridat try catch
 
     #Ulozenie pola logov do suboru s cislom globalnej premennej   
     def dumpSyslogLogs(self, system, number):
-        with open(f'exported\\{system}\\syslogbatch{number}.json', 'w') as f:
-            json.dump(self.getSyslogArray(), f)
+        try:
+            with open(f'exported\\{system}\\syslogbatch{number}.json', 'w') as f:
+                json.dump(self.getSyslogArray(), f)
+        except:
+            self.logger.makeLog(4, "log_array", "File Creation Failed")
             # Pridat try catch        
     
     #Funkcia ktora na zaklade batch size zapise pocet logov do .json suboru
@@ -45,7 +51,7 @@ class LogArray:
         global WINDOWSNAMENUMBER
         global SYSLOGNAMENUMBER
         # Typ Systemu
-        if system == "windows":
+        if system == "windows": # Ak ide o log z windows stanice
             if len(self.winlogArray) < BATCH_SIZE: #Porovnanie velkosti pola a batch size, ak je mensie pole tak sa log prida do pola
                 self.arrayWinAppend(data) #Pridanie logu do pola
             else: #Inak sa logy ulozia do suboru a inkrementuje sa cislo ktore pojde do nazvu buduceho suboru
@@ -54,7 +60,7 @@ class LogArray:
                 WINDOWSNAMENUMBER = WINDOWSNAMENUMBER + 1
                 self.winlogArray.clear() #Vycisti sa pole
                 self.logger.makeLog(2, "log_array" , f"Windows log file created with a batch size of {BATCH_SIZE}")
-        elif system == "linux":
+        elif system == "linux": # Ak ide o log z linux stanice
             if len(self.syslogArray) < BATCH_SIZE: #Porovnanie velkosti pola a batch size, ak je mensie pole tak sa log prida do pola
                 self.arraySyslogAppend(data) #Pridanie logu do pola
             else: #Inak sa logy ulozia do suboru a inkrementuje sa cislo ktore pojde do nazvu buduceho suboru
