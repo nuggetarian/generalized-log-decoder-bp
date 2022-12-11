@@ -16,17 +16,17 @@ def processmsg():
     resp = json.loads(s)
     #Filter na zaklade stanice
     if resp['host']['hostname'] == "miri":
-        #print(s)
+        print(s)
         print("Miri Log Received.")
-        #arraylog.saveLogs(s)
+        arraylog.saveLogs(s)
     if resp['host']['hostname'] == "radka":
-        #print(s)
+        print(s)
         print("Radka Log Received.")
-        #arraylog.saveLogs(s)
+        arraylog.saveLogs(s)
     if resp['host']['hostname'] == "regina":
-        #print(s)
+        print(s)
         print("Regina Log Received.")
-        #arraylog.saveLogs(s)
+        arraylog.saveLogs(s)
     
     # Kod na pouzitie neskor
     # resp = json.loads(s)
