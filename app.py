@@ -9,6 +9,7 @@ app = Flask(__name__)
 def processmsg():
     beautifier = Beautify()
     arraylog = LogArray()
+    syslogarray = LogArray()
     data = request.data # Ziskava raw data
     s = beautifier.beautify(data) # Funkcia na odsadenie JSON
     #print(s) # Print odsadeneho logu
@@ -18,15 +19,15 @@ def processmsg():
     if resp['host']['hostname'] == "miri":
         print(s)
         print("Miri Log Received.")
-        arraylog.saveLogs(s)
+        syslogarray.saveLogs("linux", s)
     if resp['host']['hostname'] == "radka":
         print(s)
         print("Radka Log Received.")
-        arraylog.saveLogs(s)
+        arraylog.saveLogs("windows", s)
     if resp['host']['hostname'] == "regina":
         print(s)
         print("Regina Log Received.")
-        arraylog.saveLogs(s)
+        arraylog.saveLogs("windows", s)
     
     # Kod na pouzitie neskor
     # resp = json.loads(s)
