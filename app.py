@@ -15,19 +15,16 @@ def processmsg():
     data = request.data # Ziskava raw data
     s = beautifier.beautify(data) # Funkcia na odsadenie JSON
     resp = json.loads(s)
-    #Filter na zaklade stanice
-    if resp['host']['hostname'] == "miri":
+    # Filter na zaklade operacneho systemu
+    if ('host' in resp and 'os' in resp['host'] and 'family' in resp['host']['os'] and resp['host']['os']['family'] == "windows"):
         print(s)
-        print("Miri Log Received.")
+        print("windows Log Received.")
+        print(resp['host']['os']['family'])
+        arraylog.saveLogs("windows", s)
+    elif ('log' in resp and resp['log']['syslog']):
+        print(s)
+        print("Syslog Log Received.")
         arraylog.saveLogs("linux", s)
-    if resp['host']['hostname'] == "radka":
-        print(s)
-        print("Radka Log Received.")
-        arraylog.saveLogs("windows", s)
-    if resp['host']['hostname'] == "regina":
-        print(s)
-        print("Regina Log Received.")
-        arraylog.saveLogs("windows", s)
     return s
     
 
