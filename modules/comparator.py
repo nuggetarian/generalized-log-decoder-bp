@@ -8,8 +8,11 @@ class Comparator:
         if ('host' in resp and 'os' in resp['host'] and 'family' in resp['host']['os'] and resp['host']['os']['family'] == "windows"):
             print(s)
             print("windows Log Received.")
-            arraylog.saveLogs("windows", s)
+            wincode = resp['winlog']['event_id']
+            print(wincode)
+            arraylog.saveLogs("windows", s, wincode)
         elif ('log' in resp and resp['log']['syslog']):
             print(s)
             print("Syslog Log Received.")
-            arraylog.saveLogs("linux", s)
+            syscode = resp['log']['syslog']['severity']['code']
+            arraylog.saveLogs("linux", s, syscode)
