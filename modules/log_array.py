@@ -32,7 +32,7 @@ class LogArray:
     #Ulozenie pola logov do suboru s cislom globalnej premennej   
     def dumpWinLogs(self, system, number, code):
         try:
-            with open(f'exported\\{system}\\winlogbatch{code}.json', 'w') as f:
+            with open(f'exported\\{system}\\winlog_{code}_batch_{BATCH_SIZE}.json', 'w') as f:
                 json.dump(self.getWinArray(), f)
         except:
             self.logger.makeLog(4, "log_array", "File Creation Failed")
@@ -53,7 +53,7 @@ class LogArray:
         global SYSLOGNAMENUMBER
         # Typ Systemu
         if system == "windows": # Ak ide o log z windows stanice
-            if len(self.winlogArray) < BATCH_SIZE and not exists(f'exported\\{system}\\winlogbatch{code}.json'): #Porovnanie velkosti pola a batch size, ak je mensie pole tak sa log prida do pola
+            if len(self.winlogArray) < BATCH_SIZE and not exists(f'exported\\{system}\\winlog_{code}-batch_{BATCH_SIZE}.json'): #Porovnanie velkosti pola a batch size, ak je mensie pole tak sa log prida do pola
                 self.arrayWinAppend(data) #Pridanie logu do pola
             else: #Inak sa logy ulozia do suboru a inkrementuje sa cislo ktore pojde do nazvu buduceho suboru
                 self.arrayWinAppend(data)
