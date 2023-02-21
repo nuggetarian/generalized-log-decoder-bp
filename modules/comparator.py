@@ -16,3 +16,7 @@ class Comparator:
             print("Syslog Log Received.")
             syscode = resp['log']['syslog']['severity']['code']
             arraylog.saveLogs("linux", s, syscode)
+        else:
+            print("It works!!")
+            
+            
