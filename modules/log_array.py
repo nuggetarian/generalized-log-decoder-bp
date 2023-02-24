@@ -5,6 +5,7 @@ from os.path import exists
 
 WINDOWSNAMENUMBER = 1 #Globalna premenna na pocitanie cisla suboru
 SYSLOGNAMENUMBER = 1
+OTHERNAMENUMBER = 1
 
 class LogArray:
     #Deklaracie
@@ -51,6 +52,7 @@ class LogArray:
     def saveLogs(self, system, data, code):
         global WINDOWSNAMENUMBER
         global SYSLOGNAMENUMBER
+        global OTHERNAMENUMBER
         # Typ Systemu
         if system == "windows": # Ak ide o log z windows stanice
             if len(self.winlogArray) < BATCH_SIZE and not exists(f'exported\\{system}\\winlog_{code}-batch_{BATCH_SIZE}.json'): #Porovnanie velkosti pola a batch size, ak je mensie pole tak sa log prida do pola
@@ -70,6 +72,15 @@ class LogArray:
                 SYSLOGNAMENUMBER = SYSLOGNAMENUMBER + 1
                 self.syslogArray.clear() #Vycisti sa pole
                 self.logger.makeLog(2, "log_array" , f"Syslog log file created with a batch size of {BATCH_SIZE}")
+        elif system == "other":
+            try:
+                with open(f'exported\\{system}\\other{OTHERNAMENUMBER}_batch_1.json', 'w') as f:
+                    json.dump(data, f)
+                self.logger.makeLog(2, "log_array" , f"Other log file created with a batch size of 1")
+                OTHERNAMENUMBER = OTHERNAMENUMBER + 1
+            except:
+                self.logger.makeLog(4, "log_array", "File Creation Failed")
+            
 
     
             
