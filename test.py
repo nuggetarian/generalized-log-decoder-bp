@@ -1,11 +1,12 @@
 import json
+import os
 
-with open('C:\\Users\\Mike\\Documents\\BakalarskaPraca\\generalized-log-decoder-copy\\windows-log-radka.json') as json_file:
-    json1 = json.load(json_file)
+# with open('C:\\Users\\Mike\\Documents\\BakalarskaPraca\\generalized-log-decoder-copy\\windows-log-radka.json') as json_file:
+#     json1 = json.load(json_file)
 
 
-with open('C:\\Users\\Mike\\Documents\\BakalarskaPraca\\generalized-log-decoder-copy\\windows-log-regina.json') as json_file:
-    json2 = json.load(json_file)
+# with open('C:\\Users\\Mike\\Documents\\BakalarskaPraca\\generalized-log-decoder-copy\\windows-log-regina.json') as json_file:
+#     json2 = json.load(json_file)
 
 # print("json1:", json1)
 # print("json2:", json2)
@@ -27,12 +28,46 @@ with open('C:\\Users\\Mike\\Documents\\BakalarskaPraca\\generalized-log-decoder-
 
 def compare(json1, json2):
     if set(json1.keys()) == set(json2.keys()):
-        print("Works")
+        return True
     else:
-        print("Does not work")
+        return False
 
-compare(json1, json2)
+#compare(json1, json2)
 
+def numOfFiles():
+    count = 0
+    dir_path = f'exported\\other'
+    for path in os.scandir(dir_path):
+        if path.is_file():
+            count += 1
+    print('file count:', count)
+
+
+def cycleFiles():
+    count = 0
+    dir_path = f'exported\\other'
+    for path in os.scandir(dir_path):
+        if path.is_file():
+            count += 1
+    
+    data = {
+         "vyskusame": "test"
+    }
+    
+    for i in range(count):
+        with open(f'exported\\other\\other{i+1}_batch_1.json') as json_file:
+            json1 = json.load(json_file)
+            json2 = data
+            if compare(json1, json2) == True:
+                        print("Same file")
+            elif compare(json1, json2) == False:
+                        print("Different file")
+            # for f in range(count):
+            #     with open(f'exported\\other\\other{f+1}_batch_1.json') as json_file:
+            #         json2 = json.load(json_file)
+                    
+                
+cycleFiles()
 # data = {"test": "test"}
 
 # with open('exported/data.json', 'w') as f:
