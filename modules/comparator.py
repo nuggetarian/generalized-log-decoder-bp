@@ -4,23 +4,23 @@ arraylog = LogArray()
 
 class Comparator:
     
-    def compare(self, resp, s):
-        try:
-            if ('host' in resp and 'os' in resp['host'] and 'family' in resp['host']['os'] and resp['host']['os']['family'] == "windows"):
-                print(s)
+    def compare(self, data):
+        # try:
+            if ('host' in data and 'os' in data['host'] and 'family' in data['host']['os'] and data['host']['os']['family'] == "windows"):
+                # print(data)
                 print("windows Log Received.")
-                wincode = resp['winlog']['event_id']
+                wincode = data['winlog']['event_id']
                 print(wincode)
-                arraylog.saveLogs("windows", s, wincode)
-            elif ('log' in resp and resp['log']['syslog']):
-                print(s)
+                arraylog.saveLogs("windows", data, wincode)
+            elif ('log' in data and data['log']['syslog']):
+                # print(data)
                 print("Syslog Log Received.")
-                syscode = resp['log']['syslog']['severity']['code']
-                arraylog.saveLogs("linux", s, syscode)
+                syscode = data['log']['syslog']['severity']['code']
+                arraylog.saveLogs("linux", data, syscode)
             else:
-                print("It works!!")
-                arraylog.saveLogs("other", s, 1)
-        except:
-            print("Possibly not a JSON.")
+                # print(data)
+                arraylog.saveLogs("other", data, 1)
+        # except:
+        #      print("Possibly not a JSON.")
             
             
