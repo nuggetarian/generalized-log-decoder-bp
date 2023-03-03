@@ -11,7 +11,6 @@ class Linux:
     def arraySyslogAppend(self, data):
         self.syslogArray.append(data)
     
-
     #Getter na syslog pole
     def getSyslogArray(self):
         return self.syslogArray

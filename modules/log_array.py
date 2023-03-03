@@ -13,7 +13,6 @@ class LogArray:
     linuxLog = Linux()
     otherLog = Other()
     
-     
     #Funkcia ktora na zaklade batch size zapise pocet logov do .json suboru
     def saveLogs(self, system, data, code):
         
@@ -26,15 +25,3 @@ class LogArray:
             
         elif system == "other": # Ak ide o log ktory je neznamy
             self.otherLog.saveOtherLog(system, data)
-
-            
-
-    
-            
-
-
-
-
-
-
-

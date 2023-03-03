@@ -10,4 +10,3 @@ class Beautify:
         s = json.dumps(data, indent=4, sort_keys=True) #Konverzia do JSON, s odsadenim 4 medzery a zoradenim klucov
         return s
         # Nastavit time koniec sem, mozno zalogovat
-

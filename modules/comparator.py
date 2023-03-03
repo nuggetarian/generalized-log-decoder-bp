@@ -18,6 +18,4 @@ class Comparator:
             else:
                 arraylog.saveLogs("other", data, 1)
         except:
-             print("Possibly not a JSON.")
-            
-            
+             print("Possibly not a JSON.")     

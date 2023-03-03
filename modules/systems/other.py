@@ -14,7 +14,6 @@ class Other:
         else:
             return False
             
-    
     def cycleFiles(self, data):
         global SIMILAR
         count = 0

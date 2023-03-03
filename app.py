@@ -9,12 +9,10 @@ comparator = Comparator()
 
 @app.route('/v1/processmsg', methods=['GET','POST'])
 def processmsg():   
-    data = request.json # Ziskava raw data
+    data = request.json # Ziskava json data
     comparator.compare(data)
-
     print(data)
     return data
     
-
 if __name__ == '__main__':
 	app.run()

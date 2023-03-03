@@ -24,7 +24,6 @@ class Windows:
             self.logger.makeLog(4, "log_array", "File Creation Failed")
             # Pridat try catch
         
-        
     def saveWinLog(self, system, data, code):
         if len(self.winlogArray) < BATCH_SIZE and not exists(f'exported\\{system}\\winlog_{code}-batch_{BATCH_SIZE}.json'): #Porovnanie velkosti pola a batch size, ak je mensie pole tak sa log prida do pola
             self.arrayWinAppend(data) #Pridanie logu do pola
