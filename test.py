@@ -54,17 +54,21 @@ def cycleFiles():
          "vyskusame": "test"
     }
     
+    similar = 0
+    
     for i in range(count):
         with open(f'exported\\other\\other{i+1}_batch_1.json') as json_file:
             json1 = json.load(json_file)
             json2 = data
             if compare(json1, json2) == True:
+                        similar += 1
                         print("Same file")
             elif compare(json1, json2) == False:
                         print("Different file")
             # for f in range(count):
             #     with open(f'exported\\other\\other{f+1}_batch_1.json') as json_file:
             #         json2 = json.load(json_file)
+    print(similar)
                     
                 
 cycleFiles()
