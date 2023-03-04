@@ -1,4 +1,3 @@
-import json
 from modules.logger import Logger
 from modules.systems.windows import Windows
 from modules.systems.linux import Linux

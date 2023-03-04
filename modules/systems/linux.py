@@ -24,7 +24,10 @@ class Linux:
             
     def saveLinuxLog(self, system, data, code):
         if len(self.syslogArray) < BATCH_SIZE and not exists(f'exported\\{system}\\syslogbatch{code}.json'): #Porovnanie velkosti pola a batch size, ak je mensie pole tak sa log prida do pola
+            
             self.arraySyslogAppend(data) #Pridanie logu do pola
+        elif exists(f'exported\\{system}\\syslog_{code}-batch_{BATCH_SIZE}.json'):
+            print("File already exists")
         else: #Inak sa logy ulozia do suboru a inkrementuje sa cislo ktore pojde do nazvu buduceho suboru
             self.arraySyslogAppend(data)
             self.dumpSyslogLogs(system, code)
