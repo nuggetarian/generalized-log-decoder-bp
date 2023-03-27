@@ -9,7 +9,7 @@ class Windows:
     
     # Funkcia na tvorbu custom pola podla kodu z logu
     def createArray(self, code):
-        var_name = 'array_' + code
+        var_name = 'array_' + str(code)
         self.dictionary[var_name] = [] 
     
     # Getter na pole
