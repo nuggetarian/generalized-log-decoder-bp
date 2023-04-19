@@ -17,7 +17,7 @@
         },
         "priority": 86,
         "severity": {
-          "code": 6,
+          "code": 9,
           "name": "Informational"
         }
       }
@@ -48,7 +48,7 @@
         },
         "priority": 86,
         "severity": {
-          "code": 6,
+          "code": 9,
           "name": "Informational"
         }
       }
@@ -79,7 +79,7 @@
         },
         "priority": 86,
         "severity": {
-          "code": 6,
+          "code": 9,
           "name": "Informational"
         }
       }
