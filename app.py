@@ -1,12 +1,14 @@
 from flask import Flask, request
 from modules.logger import Logger
 from modules.comparator import Comparator
+from modules.anonymization_module import AnonymizeForward
 from config import MODE
 import requests
 
 app = Flask(__name__)
 logger = Logger()
 comparator = Comparator()
+anonymization = AnonymizeForward()
 
 @app.route('/v1/processmsg', methods=['GET','POST'])
 def processmsg():   
@@ -18,62 +20,46 @@ def processmsg():
     return data
 
 @app.route('/v1/forward-anonymize', methods=['GET', 'POST'])
-def fwdAnonymize():
-    # url = 'http://localhost:5000/upload'
-    # with open('D:\\bakalarska-praca\\generalized-log-decoder-bp\\syslog-log-miri.json', 'rb') as f:
-    #     res = requests.post(url, files = f)
+def fwdAnonymize(): 
+       
+    r = anonymization.anonymize()
+    results = []
 
-    # return "bruh"
+    for i in range(1, len(r)):
+        print(r[i])
+        file_path = f'{r[i]}'
 
-    # data = request.json
-    # res =  requests.post('http://localhost:6000/v1/processmsg', json=data)
-    # return data
+        with open(file_path, "rb") as f:
+            file_data = f.read()
 
-    # data = request.json
-    # res =  requests.post('http://localhost:5000/acceptjson', json=data)
-    # return data
+        url = "http://localhost:5000/anonymize/json"
+        payload = {'jsonfile': file_data}
 
-    # url = 'http://localhost:29170/v1/upload'
-    # with open(f'exported\\linux\\syslog_6-batch_3.json', 'rb') as f:
-    #     res = requests.post(url, files = f)
-        
-    # url = 'http://localhost:29170/v1/upload'
-    # with open(f'D:\\bakalarska-praca\\generalized-log-decoder-bp\\syslog-log-miri.json', 'rb') as f:
-    #     res = requests.post(url, files = f)
+        response = requests.post(url, files=payload)
 
-    # define the URL to send the request to
-    url = "http://localhost:5000/upload"
+        results.append(response.text)
 
-    # define the path to the file to upload
-    # file_path = "D:\\bakalarska-praca\\generalized-log-decoder-bp\\syslog-log-miri.json"
-    file_path = "D:\\bakalarska-praca\\generalized-log-decoder-bp\\exported\\linux\\syslog_6-batch_3.json"
+        i = i + 1
 
-    # open and read the contents of the file
-    with open(file_path, "rb") as f:
-        file_data = f.read()
-        
-    print(file_data)
+    i = 1
+    for result in results:
+        try:
+            with open(f'anonymized\\{r[i]}', 'w') as f:
+                f.write(result)
+            i = i + 1
+        except Exception as e:
+            print(e)
 
-    # define the data payload for the request
-    payload = {"file": file_data}
+    # PROBLEM BOLO ZE NEVZNIKLI FOLDERY TREBA VYMYSLET
+    # try:
+    #     with open(f'anonymized\\{r[1]}', 'w') as f:
+    #         f.write(results[0])
+    # except Exception as e:
+    #     print(e)
 
-    # send the POST request with the file as an attachment
-    response = requests.post(url, files=payload)
+    return response.text
 
-    # print the response
-    print(response.text)
-    
-    
-    return "bruh"
 
-@app.route('/v1/upload', methods=['GET', 'POST'])
-
-def upload_file():
-    # Get the uploaded file from the request
-    file = request.files.get('file', str(False))
-    print(file)
-
-    return "bruh"
     
 if __name__ == '__main__':
 	app.run(threaded=True, port=29170)
