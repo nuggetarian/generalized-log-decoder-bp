@@ -45,8 +45,8 @@ def fwdAnonymize():
     url = "http://localhost:5000/upload"
 
     # define the path to the file to upload
-    file_path = "D:\\bakalarska-praca\\generalized-log-decoder-bp\\syslog-log-miri.json"
-    # file_path = "D:\\bakalarska-praca\\generalized-log-decoder-bp\\exported\\linux\\syslog_6-batch_3.json"
+    # file_path = "D:\\bakalarska-praca\\generalized-log-decoder-bp\\syslog-log-miri.json"
+    file_path = "D:\\bakalarska-praca\\generalized-log-decoder-bp\\exported\\linux\\syslog_6-batch_3.json"
 
     # open and read the contents of the file
     with open(file_path, "rb") as f:

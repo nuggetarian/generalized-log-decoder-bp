@@ -1,0 +1,30 @@
+{
+    "@timestamp": "2023-04-24T11:17:23.151781Z",
+    "@version": "1",
+    "event": {
+        "original": "2023-04-24_11:17:23.15081 Program aborted: kascfg.Validate: invalid ConfigurationFile.Gitlab: embedded message failed validation | caused by: invalid GitLabCF.Address: value length must be at least 1 bytes\n"
+    },
+    "host": {
+        "ip": "10.50.64.5"
+    },
+    "log": {
+        "syslog": {
+            "facility": {
+                "code": 0,
+                "name": "kernel"
+            },
+            "priority": 0,
+            "severity": {
+                "code": 0,
+                "name": "Emergency"
+            }
+        }
+    },
+    "message": "2023-04-24_11:17:23.15081 Program aborted: kascfg.Validate: invalid ConfigurationFile.Gitlab: embedded message failed validation | caused by: invalid GitLabCF.Address: value length must be at least 1 bytes\n",
+    "service": {
+        "type": "system"
+    },
+    "tags": [
+        "_grokparsefailure_sysloginput"
+    ]
+}
