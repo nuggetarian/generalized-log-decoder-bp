@@ -1,8 +1,8 @@
 {
-    "@timestamp": "2023-04-24T11:19:12.395824Z",
+    "@timestamp": "2023-05-07T18:11:00.328596Z",
     "@version": "1",
     "event": {
-        "original": "2023-04-24_11:19:12.39354 miri gitlab-exporter: - -> /database\n"
+        "original": "certificate,debug start CRL update"
     },
     "host": {
         "ip": "20.60.64.3"
@@ -20,7 +20,7 @@
             }
         }
     },
-    "message": "2023-04-24_11:19:12.39354 miri gitlab-exporter: - -> /database\n",
+    "message": "certificate,debug start CRL update",
     "service": {
         "type": "system"
     },

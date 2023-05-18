@@ -2,22 +2,69 @@ from flask import Flask, request
 from modules.logger import Logger
 from modules.comparator import Comparator
 from modules.anonymization_module import AnonymizeForward
-from config import MODE
+from time import perf_counter
+from modules.neural_network import NeuralNetwork
+from config import MODE, BATCH_SIZE
 import requests
+import json
+import queue
+import threading
+from concurrent.futures import ThreadPoolExecutor
 
 app = Flask(__name__)
 logger = Logger()
 comparator = Comparator()
 anonymization = AnonymizeForward()
+ai = NeuralNetwork()
+q = queue.Queue()
+logArray = []
 
 @app.route('/v1/processmsg', methods=['GET','POST'])
 def processmsg():   
     data = request.json # Ziskava json data
     if MODE == 1:
         comparator.compare(data)
-    elif MODE == 2:  
-        print(data)
-    return data
+    elif MODE == 2: # Logy po jednom
+        log = json.dumps(data)
+        start = perf_counter()
+        ai.predict(log)
+        end = perf_counter()
+        time = format(round((end - start)*1000))
+        print(time)
+
+    elif MODE == 3: #Queue Batchov
+            
+        def if_batch_smaller():
+            if len(logArray) < BATCH_SIZE:
+                logArray.append(data)
+                print("Log appended")
+                print(len(logArray))
+            
+        def if_batch_larger():
+            if len(logArray) >= BATCH_SIZE:
+                arrayToString = ' '.join(map(str, logArray))
+                q.put(arrayToString)
+                print("Batch added to queue")
+                logArray.clear()
+                print("Array cleared")
+
+        def if_queue_not_empty():
+            if not q.empty():
+                start = perf_counter()
+                thread = threading.Thread(target=ai.predict(q.get()))
+                thread.start()
+                print(("Prediction Started"))
+                end = perf_counter()
+                time = format(round((end - start)*1000))
+                print(time)
+
+        executor = ThreadPoolExecutor(max_workers=3)
+        
+        executor.submit(if_batch_smaller)
+        executor.submit(if_batch_larger)
+        executor.submit(if_queue_not_empty)
+          
+    return data 
 
 @app.route('/v1/forward-anonymize', methods=['GET', 'POST'])
 def fwdAnonymize(): 
@@ -50,15 +97,7 @@ def fwdAnonymize():
         except Exception as e:
             print(e)
 
-    # PROBLEM BOLO ZE NEVZNIKLI FOLDERY TREBA VYMYSLET
-    # try:
-    #     with open(f'anonymized\\{r[1]}', 'w') as f:
-    #         f.write(results[0])
-    # except Exception as e:
-    #     print(e)
-
     return response.text
-
 
     
 if __name__ == '__main__':
