@@ -19,8 +19,8 @@ class NeuralNetwork:
     #     except RuntimeError as e:
     #         raise SystemError('Is not able to set a GPU device')
     
-    test_model = TFAutoModelForQuestionAnswering.from_pretrained("generalized-log-decoder-bp\\modules\\model")
-    test_tokenizer = AutoTokenizer.from_pretrained("generalized-log-decoder-bp\\modules\\model")
+    test_model = TFAutoModelForQuestionAnswering.from_pretrained("modules\\model")
+    test_tokenizer = AutoTokenizer.from_pretrained("modules\\model")
     question_answerer = pipeline("question-answering", model=test_model, tokenizer=test_tokenizer, device=0, device_map="auto")
 
    
