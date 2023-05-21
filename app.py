@@ -25,9 +25,10 @@ def processmsg():
     if MODE == 1:
         comparator.compare(data)
     elif MODE == 2: # Logy po jednom
+        executor = ThreadPoolExecutor(max_workers=1)
         log = json.dumps(data)
         start = perf_counter()
-        ai.predict(log)
+        executor.submit(ai.predict(log))
         end = perf_counter()
         time = format(round((end - start)*1000))
         print(time)
