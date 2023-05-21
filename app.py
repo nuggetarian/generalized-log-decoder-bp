@@ -25,10 +25,12 @@ def processmsg():
     if MODE == 1:
         comparator.compare(data)
     elif MODE == 2: # Logy po jednom
-        executor = ThreadPoolExecutor(max_workers=1)
+        def prediction():
+            ai.predict(log)
+        executor = ThreadPoolExecutor(max_workers=2)
         log = json.dumps(data)
         start = perf_counter()
-        executor.submit(ai.predict(log))
+        executor.submit(prediction)
         end = perf_counter()
         time = format(round((end - start)*1000))
         print(time)
@@ -52,9 +54,7 @@ def processmsg():
         def if_queue_not_empty():
             if not q.empty():
                 start = perf_counter()
-                thread = threading.Thread(target=ai.predict(q.get()))
-                thread.start()
-                print(("Prediction Started"))
+                ai.predict(q.get())
                 end = perf_counter()
                 time = format(round((end - start)*1000))
                 print(time)
