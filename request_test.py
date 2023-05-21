@@ -45,4 +45,4 @@ for _ in range(15):
     print(response.status_code)
 end = perf_counter()
 time = format(round((end - start)*1000))
-print(time)
+print("Time taken to send requests: " + time)
