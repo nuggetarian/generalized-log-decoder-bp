@@ -2,6 +2,7 @@ import requests
 from time import perf_counter
 
 url = "http://127.0.0.1:29170/v1/processmsg"
+logs_sent = 10
 
 payload = {
     "@timestamp": "2022-12-08T23:37:18Z",
@@ -40,7 +41,7 @@ headers = {
 }
 
 start = perf_counter()
-for _ in range(15):
+for _ in range(logs_sent):
     response = requests.post(url, json=payload, headers=headers)
     print(response.status_code)
 end = perf_counter()

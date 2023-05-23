@@ -51,10 +51,10 @@ class NeuralNetwork:
         counter=1
 
         for q in question:
-            # start = perf_counter()
+            start = perf_counter()
             result = self.question_answerer(question=q, context=log)
-            # end = perf_counter()
-            # time = format(round((end - start)*1000))
+            end = perf_counter()
+            time = format(round((end - start)*1000))
             print(str(counter) + '. Question: ' + q + '\nAnswer: ' + result['answer'] + '\nScore: ' + str(result['score']) + '\nExecution time [ms]: ' + str(time) + '\n')
             counter+=1
     
