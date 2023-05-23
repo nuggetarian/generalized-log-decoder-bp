@@ -6,6 +6,7 @@ from modules.batch_mode import BatchMode
 from time import perf_counter
 from modules.neural_network import NeuralNetwork
 from config import MODE
+from folder_check import FolderCheck
 import requests
 import json
 import queue
@@ -18,6 +19,16 @@ ai = NeuralNetwork()
 q = queue.Queue()
 logArray = []
 batchMode = BatchMode()
+folderCheck = FolderCheck()
+   
+    
+def initialize_app():
+    folderCheck.check()
+    folderCheck.checkAnonymized()
+
+with app.app_context():
+    initialize_app()
+
 
 @app.route('/v1/processmsg', methods=['GET','POST'])
 def processmsg():   

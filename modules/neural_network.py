@@ -6,25 +6,12 @@ import torch
 import tensorflow as tf
 
 class NeuralNetwork:
-    # def getCurrentGpu():
-    #     print('Currently used device id: {}'.format(torch.cuda.current_device()))
-    #     print('Currently used device name: {}'.format(torch.cuda.get_device_name(torch.cuda.current_device())))
-
-    # def setCudaDevice(gpuid):
-    #     try:
-    #         torch.cuda.set_device(gpuid)
-    #         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    #         n_gpu = torch.cuda.device_count()
-
-    #     except RuntimeError as e:
-    #         raise SystemError('Is not able to set a GPU device')
     
     test_model = TFAutoModelForQuestionAnswering.from_pretrained("modules\\model")
     test_tokenizer = AutoTokenizer.from_pretrained("modules\\model")
-    question_answerer = pipeline("question-answering", model=test_model, tokenizer=test_tokenizer, device=0, device_map="auto")
+    question_answerer = pipeline("question-answering", model=test_model, tokenizer=test_tokenizer, device=0)
 
-   
-    # setCudaDevice(0)  
+     
     torch.device("cuda" if torch.cuda.is_available() else "cpu")   
     def predict(self, log):
         question = [#"When did the event happen?", 
