@@ -28,6 +28,12 @@ class FolderCheck():
             os.mkdir("exported\\other")
             print("directory 'exported\other' created")
             
+        if os.path.exists("modules\\model"): 
+            pass
+        elif not os.path.exists("modules\\model"):
+            os.mkdir("modules\\model")
+            print("directory 'modules\model' created")
+            
     def checkAnonymized(self):
         if os.path.exists("anonymized"): 
             pass
