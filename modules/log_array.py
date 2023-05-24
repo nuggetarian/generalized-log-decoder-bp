@@ -6,13 +6,12 @@ from modules.systems.other import Other
 OTHERNAMENUMBER = 1 #Globalna premenna na pocitanie cisla suboru
 
 class LogArray:
-    #Deklaracie
     logger = Logger()
     windowsLog = Windows()
     linuxLog = Linux()
     otherLog = Other()
     
-    #Funkcia ktora na zaklade batch size zapise pocet logov do .json suboru
+    # Funkcia ktora na zaklade batch size zapise pocet logov do .json suboru
     def saveLogs(self, system, data, code):
         
         # Typ Systemu

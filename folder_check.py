@@ -1,9 +1,8 @@
 import os
 
 class FolderCheck():
-    current_working_directory = os.getcwd()
     
-    def check(self):       
+    def check(self): # Ak priecinok existuje -- pokracuje sa dalej, ak nie -- je vytvoreny.      
         if os.path.exists("exported"): 
             pass
         elif not os.path.exists("exported"):

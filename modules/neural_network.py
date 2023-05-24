@@ -1,21 +1,21 @@
-import time
-import transformers
 from time import perf_counter
 from transformers import AutoTokenizer, TFAutoModelForQuestionAnswering, pipeline
 import torch
-import tensorflow as tf
 
 class NeuralNetwork:
     
+    # Cesty k modelu a vytvorenie pipeline
     test_model = TFAutoModelForQuestionAnswering.from_pretrained("modules\\model")
     test_tokenizer = AutoTokenizer.from_pretrained("modules\\model")
     question_answerer = pipeline("question-answering", model=test_model, tokenizer=test_tokenizer, device=0)
 
-     
+    # Nastavenie spustania primarne cez GPU
     torch.device("cuda" if torch.cuda.is_available() else "cpu")   
-    def predict(self, log):
+    # Zoznam otazok
+    def predict(self, log): 
         question = [#"When did the event happen?", 
-                "What is the level of log?", 
+                # "What is the level of log?",
+                "What is the IP address of log?", 
                 #"What is the eventid?",
                 #"Which event channel is the source?",
                 #"What is the name of the host origin?",
@@ -39,10 +39,11 @@ class NeuralNetwork:
 
         for q in question:
             start = perf_counter()
+            # Spustenie question answering funkcie neuronovej siete, kde je prichadzajuci log kontext
             result = self.question_answerer(question=q, context=log)
             end = perf_counter()
-            time = format(round((end - start)*1000))
-            print(str(counter) + '. Question: ' + q + '\nAnswer: ' + result['answer'] + '\nScore: ' + str(result['score']) + '\nExecution time [ms]: ' + str(time) + '\n')
+            time = format(round((end - start)*1000)) # Pocitadlo casu spracovania v ms
+            print(str(counter) + '. Question: ' + q + '\nAnswer: ' + result['answer'] + '\nScore: ' + str(result['score']) + '\nExecution time [ms]: ' + str(time) + '\n') # Vypis odpovede
             counter+=1
     
     

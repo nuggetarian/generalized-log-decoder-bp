@@ -1,4 +1,4 @@
-# Velkost suboru na zaklade poctu logov
+# Velkost sady logov (batchu)
 BATCH_SIZE = 5
-# Mod fungovania aplikacie, 1 = Save Mode, 2 = Neural Network, 3 = Neural Network with batches
-MODE = 1
+# Mod fungovania aplikacie, 1 = Mod ukladania, 2 = Mod postupnej Neural Network, 3 = Mod Neural Network s batchmi
+MODE = 2

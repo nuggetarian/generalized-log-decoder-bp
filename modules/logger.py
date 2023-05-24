@@ -11,14 +11,14 @@ class Logger:
         5: '[CRITICAL]'
     }
     
-    #Funkcia na vytvorenie logu na zaklade vstupnych parametrov
+    # Funkcia na vytvorenie logu na zaklade vstupnych parametrov
     def makeLog(self, level, usedClass, message):
         time = datetime.now()
         current = time.strftime("%H:%M:%S")
-        #Log obsahuje sucasny cas, zadanu uroven, triedu kde sa dana udalost vykonala a spravu
+        # Log obsahuje sucasny cas, zadanu uroven, triedu kde sa dana udalost vykonala a spravu
         log = f"[{current}] {self.levels.get(level)} [{usedClass}] {message}\n"
         print(log)
-        with open('activity.log', 'a') as f: #Zapis logu do suboru
+        with open('activity.log', 'a') as f: # Zapis logu do suboru
             f.write(log)
 
 
