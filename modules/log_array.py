@@ -12,7 +12,7 @@ class LogArray:
     otherLog = Other()
     
     # Funkcia ktora na zaklade batch size zapise pocet logov do .json suboru
-    def saveLogs(self, system, data, code):
+    def saveLogs(self, system:str, data:str, code:int) -> None:
         
         # Typ Systemu
         if system == "windows": # Ak ide o log z windows stanice

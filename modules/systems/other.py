@@ -8,13 +8,13 @@ OTHERNAMENUMBER = 1 # Globalna premenna na pocitanie cisla suboru
 class Other:
     logger = Logger()
     
-    def compare(self, json1, json2): # Funkcia porovnania JSON klucov
+    def _compare(self, json1, json2) -> bool: # Funkcia porovnania JSON klucov
         if set(json1.keys()) == set(json2.keys()):
             return True
         else:
             return False
             
-    def cycleFiles(self, data): # Cyklovanie suborov
+    def _cycleFiles(self, data:str) -> None: # Cyklovanie suborov
         global SIMILAR
         count = 0
         dir_path = f'exported\\other'
@@ -25,11 +25,11 @@ class Other:
         for i in range(count): # For loop na porovnanie suborov a ich klucov
             with open(f'exported\\other\\other{i+1}_batch_1.json') as json_file:
                 json1 = json.load(json_file)
-                if self.compare(json1, data) == True: # Premenna udrziavajuca to, ze su kluce podobne
+                if self._compare(json1, data) == True: # Premenna udrziavajuca to, ze su kluce podobne
                             SIMILAR = SIMILAR + 1
                            
-    def saveOtherLog(self, system, data):
-        self.cycleFiles(data) 
+    def saveOtherLog(self, system:str, data:str) -> None:
+        self._cycleFiles(data) 
         global SIMILAR
         global OTHERNAMENUMBER        
         if SIMILAR == 0: # Ak nie su kluce podobne, tak sa ulozi subor o batch size 1

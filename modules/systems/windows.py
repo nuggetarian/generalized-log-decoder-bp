@@ -8,16 +8,16 @@ class Windows:
     dictionary = {} # Dictionary pre custom polia podla kodu logu
     
     # Funkcia na tvorbu custom pola podla kodu z logu
-    def createArray(self, code):
+    def _createArray(self, code:int) -> None:
         var_name = 'array_' + str(code)
         self.dictionary[var_name] = [] 
     
     # Getter na pole
-    def getArray(self, code):
+    def _getArray(self, code:int):
         return self.dictionary.get(f"array_{code}")
     
     # Funkcia na ulozenie pola do suboru
-    def dumpWinLogs(self, system, code):
+    def _dumpWinLogs(self, system:str, code:int) -> None:
         try:
             with open(f'exported\\{system}\\winlog_{code}-batch_{BATCH_SIZE}.json', 'w') as f:
                 json.dump(self.dictionary[f'array_{code}'], f)
@@ -25,10 +25,10 @@ class Windows:
             self.logger.makeLog(4, "log_array", "File Creation Failed")
     
     # Funkcia ua sprostredkovanie vsetkeho
-    def saveWinLog(self, system, data, code):
+    def saveWinLog(self, system:str, data:str, code:int) -> None:
         # Overenie existencie pola, ak neexistuje vytvori sa nove a prida sa donho prvy log
-        if self.getArray(code) is None:
-            self.createArray(code)
+        if self._getArray(code) is None:
+            self._createArray(code)
             self.dictionary[f'array_{code}'].append(data)
             print(f"Code of incoming log: {code}, Length of Array: {len(self.dictionary[f'array_{code}'])}")
         # Ak existuje vykona sa pridavanie logov alebo ukladanie
@@ -42,6 +42,6 @@ class Windows:
                 print("File already exists")
             # Inak sa logy ulozia do suboru a vycisti sa pole (hoci nemusi kedze sa vytvori custom na kazdy kod)
             else: 
-                self.dumpWinLogs(system, code)
+                self._dumpWinLogs(system, code)
                 self.dictionary[f'array_{code}'].clear() # Vycisti sa pole
                 self.logger.makeLog(2, "log_array" , f"Windows log file created with a batch size of {BATCH_SIZE}")
